@@ -23,12 +23,14 @@ class IndexController extends Controller
 
     public function index(Request $request)
     {
+        $variables = [];
+
         if ($request->isMethod('post')) {
             /**
              * @todo Perform query
              */
         }
 
-        return view('index.index');
+        return view('index.index', $variables);
     }
 } 

@@ -7,8 +7,15 @@ use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
+    /**
+     * @var \Elasticsearch\Client
+     */
     private $client;
 
+
+    /**
+     * @param Client $client
+     */
     public function __construct(Client $client)
     {
         $this->client = $client;

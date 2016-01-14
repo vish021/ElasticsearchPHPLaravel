@@ -28,6 +28,8 @@ class IndexController extends Controller
         $variables = [];
 
         if ($query = $request->query('query')) {
+            $variables['aggregations'] = $this->getSearchFilterAggregations();
+
             $query = trim($query);
             $page = $request->query('page', 1);
             $from = (($page - 1) * self::RESULTS_PER_PAGE);
@@ -39,6 +41,7 @@ class IndexController extends Controller
             $queryArray = [
                 'bool' => [
                     'must' => [],
+                    'filter' => [],
                 ],
             ];
             $tokens = explode(' ', $query);
@@ -49,6 +52,52 @@ class IndexController extends Controller
                         'name' => [
                             'query' => $token,
                             'fuzziness' => 'AUTO',
+                        ],
+                    ],
+                ];
+            }
+
+            /* Filters */
+            $startPrice = $request->query('startprice');
+            $endPrice = $request->query('endprice');
+            $status = $request->query('status');
+            $category = $request->query('category');
+
+            $variables['startPrice'] = $startPrice;
+            $variables['endPrice'] = $endPrice;
+            $variables['status'] = $status;
+            $variables['category'] = $category;
+
+            // Price
+            if ($startPrice && $endPrice) {
+                $queryArray['bool']['filter'][] = [
+                    'range' => [
+                        'price' => [
+                            'gte' => $startPrice,
+                            'lte' => $endPrice,
+                        ],
+                    ],
+                ];
+            }
+
+            // Status
+            if ($status) {
+                $queryArray['bool']['filter'][] = [
+                    'term' => [
+                        'status' => $status,
+                    ],
+                ];
+            }
+
+            // Category
+            if ($category) {
+                $queryArray['bool']['filter'][] = [
+                    'nested' => [
+                        'path' => 'categories',
+                        'query' => [
+                            'term' => [
+                                'categories.name' => $category,
+                            ],
                         ],
                     ],
                 ];
@@ -78,5 +127,52 @@ class IndexController extends Controller
         }
 
         return view('index.index', $variables);
+    }
+
+    protected function getSearchFilterAggregations()
+    {
+        $params = [
+            'index' => 'ecommerce',
+            'type' => 'product',
+            'body' => [
+                'query' => [
+                    'match_all' => new \stdClass(),
+                ],
+                'size' => 0,
+                'aggs' => [
+                    'statuses' => [
+                        'terms' => [ 'field' => 'status' ]
+                    ],
+
+                    'price_ranges' => [
+                        'range' => [
+                            'field' => 'price',
+                            'ranges' => [
+                                [ 'from' => 1, 'to' => 25 ],
+                                [ 'from' => 25, 'to' => 50 ],
+                                [ 'from' => 50, 'to' => 75 ],
+                                [ 'from' => 75, 'to' => 100 ]
+                            ],
+                        ],
+                    ],
+
+                    'categories' => [
+                        'nested' => [
+                            'path' => 'categories',
+                        ],
+                        'aggs' => [
+                            'categories_count' => [
+                                'terms' => [ 'field' => 'categories.name' ]
+                            ],
+
+                        ],
+                    ],
+
+
+                ],
+            ],
+        ];
+
+        return $this->client->search($params);
     }
 } 

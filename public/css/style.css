@@ -14,7 +14,20 @@
 #search-wrapper input[type="text"] { width: 500px; }
 #search-wrapper button { width: 50px; background-color: #e6e6e6; }
 
+#filters-wrapper a {
+    margin-right: 20px;
+    white-space: nowrap;
+}
+
+#filters-wrapper a.active {
+    font-weight: bold;
+}
+
 #results-text {
     text-align: center;
-    margin-bottom: 10px;
+    margin: 10px 0 10px 0;
+}
+
+#no-results {
+    padding: 20px 0 20px 0;
 }

@@ -26,9 +26,26 @@ class IndexController extends Controller
         $variables = [];
 
         if ($request->isMethod('post')) {
-            /**
-             * @todo Perform query
-             */
+            $query = $request->input('query');
+            $variables['query'] = $query;
+
+            $params = [
+                'index' => 'ecommerce',
+                'type' => 'product',
+                'body' => [
+                    'query' => [
+                        'match' => [
+                            'name' => $query,
+                        ],
+                    ],
+                ],
+            ];
+
+            $result = $this->client->search($params);
+
+            if (isset($result['hits']['hits'])) {
+                $variables['hits'] = $result['hits']['hits'];
+            }
         }
 
         return view('index.index', $variables);

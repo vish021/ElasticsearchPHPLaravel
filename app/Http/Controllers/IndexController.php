@@ -28,6 +28,7 @@ class IndexController extends Controller
         $variables = [];
 
         if ($query = $request->query('query')) {
+            $query = trim($query);
             $page = $request->query('page', 1);
             $from = (($page - 1) * self::RESULTS_PER_PAGE);
 
@@ -35,15 +36,29 @@ class IndexController extends Controller
             $variables['from'] = $from;
             $variables['query'] = $query;
 
+            $queryArray = [
+                'bool' => [
+                    'must' => [],
+                ],
+            ];
+            $tokens = explode(' ', $query);
+
+            foreach ($tokens as $token) {
+                $queryArray['bool']['must'][] = [
+                    'match' => [
+                        'name' => [
+                            'query' => $token,
+                            'fuzziness' => 'AUTO',
+                        ],
+                    ],
+                ];
+            }
+
             $params = [
                 'index' => 'ecommerce',
                 'type' => 'product',
                 'body' => [
-                    'query' => [
-                        'match' => [
-                            'name' => $query,
-                        ],
-                    ],
+                    'query' => $queryArray,
                     'size' => self::RESULTS_PER_PAGE,
                     'from' => $from,
                 ],

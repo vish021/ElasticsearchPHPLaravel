@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="3f74f98f-eb38-4942-90a4-2354a1b7bf83" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/IndexController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/IndexController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/index/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/index/index.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/routes.php" afterPath="$PROJECT_DIR$/app/Http/routes.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/style.css" afterPath="$PROJECT_DIR$/public/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="elasticsearch.iws" />
@@ -38,10 +35,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IndexController.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="IndexController.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/IndexController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="48" selection-start="1406" selection-end="1406" vertical-scroll-proportion="-17.25" vertical-offset="426" max-vertical-offset="1080">
+            <state line="43" column="43" selection-start="943" selection-end="943" vertical-scroll-proportion="0.38073394" vertical-offset="396" max-vertical-offset="1305">
               <folding>
                 <element signature="e#40#65#0" expanded="true" />
               </folding>
@@ -49,10 +46,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.blade.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index.blade.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/index/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="87" selection-start="2105" selection-end="2105" vertical-scroll-proportion="0.5085803" vertical-offset="409" max-vertical-offset="1050">
+            <state line="49" column="87" selection-start="2105" selection-end="2105" vertical-scroll-proportion="-13.583333" vertical-offset="409" max-vertical-offset="1050">
               <folding />
             </state>
           </provider>
@@ -87,8 +84,8 @@
         <option value="$PROJECT_DIR$/resources/views/layouts/master.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/routes.php" />
         <option value="$PROJECT_DIR$/public/css/style.css" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/IndexController.php" />
         <option value="$PROJECT_DIR$/resources/views/index/index.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/IndexController.php" />
       </list>
     </option>
   </component>
@@ -482,7 +479,11 @@
       <created>1452785546662</created>
       <updated>1452785546662</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added pagination">
+      <created>1452790723859</created>
+      <updated>1452790723859</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -529,7 +530,8 @@
     <MESSAGE value="Added annotations" />
     <MESSAGE value="Small stuff" />
     <MESSAGE value="Added simple search query" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added simple search query" />
+    <MESSAGE value="Added pagination" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added pagination" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -768,19 +770,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/IndexController.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/index/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="48" selection-start="1406" selection-end="1406" vertical-scroll-proportion="-17.25" vertical-offset="426" max-vertical-offset="1080">
-          <folding>
-            <element signature="e#40#65#0" expanded="true" />
-          </folding>
+        <state line="49" column="87" selection-start="2105" selection-end="2105" vertical-scroll-proportion="-13.583333" vertical-offset="409" max-vertical-offset="1050">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/index/index.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/IndexController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="87" selection-start="2105" selection-end="2105" vertical-scroll-proportion="0.5085803" vertical-offset="409" max-vertical-offset="1050">
-          <folding />
+        <state line="43" column="43" selection-start="943" selection-end="943" vertical-scroll-proportion="0.38073394" vertical-offset="396" max-vertical-offset="1305">
+          <folding>
+            <element signature="e#40#65#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

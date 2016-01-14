@@ -25,7 +25,7 @@
 */
 
 Route::group(['middleware' => ['web']], function () {
-    Route::match(['get', 'post'], '/', [
+    Route::match('get', '/', [
         'uses' => 'IndexController@index',
         'as' => 'search',
     ]);

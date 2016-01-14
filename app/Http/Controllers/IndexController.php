@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
+    const RESULTS_PER_PAGE = 5;
+
     /**
      * @var \Elasticsearch\Client
      */
@@ -25,8 +27,12 @@ class IndexController extends Controller
     {
         $variables = [];
 
-        if ($request->isMethod('post')) {
-            $query = $request->input('query');
+        if ($query = $request->query('query')) {
+            $page = $request->query('page', 1);
+            $from = (($page - 1) * self::RESULTS_PER_PAGE);
+
+            $variables['page'] = $page;
+            $variables['from'] = $from;
             $variables['query'] = $query;
 
             $params = [
@@ -38,10 +44,18 @@ class IndexController extends Controller
                             'name' => $query,
                         ],
                     ],
+                    'size' => self::RESULTS_PER_PAGE,
+                    'from' => $from,
                 ],
             ];
 
             $result = $this->client->search($params);
+            $total = $result['hits']['total'];
+            $variables['total'] = $total;
+
+            $to = ($page * self::RESULTS_PER_PAGE);
+            $to = ($to > $total ? $total : $to);
+            $variables['to'] = $to;
 
             if (isset($result['hits']['hits'])) {
                 $variables['hits'] = $result['hits']['hits'];

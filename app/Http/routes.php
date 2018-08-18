@@ -29,4 +29,9 @@ Route::group(['middleware' => ['web']], function () {
         'uses' => 'IndexController@index',
         'as' => 'search',
     ]);
+
+    Route::match('get', '/product/view/{productId}', [
+        'uses' => 'IndexController@viewProduct',
+        'as' => 'viewProduct',
+    ]);
 });

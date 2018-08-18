@@ -28,8 +28,6 @@ class IndexController extends Controller
         $variables = [];
 
         if ($query = $request->query('query')) {
-            $variables['aggregations'] = $this->getSearchFilterAggregations();
-
             $query = trim($query);
             $page = $request->query('page', 1);
             $from = (($page - 1) * self::RESULTS_PER_PAGE);
@@ -56,6 +54,8 @@ class IndexController extends Controller
                     ],
                 ];
             }
+            
+            $variables['aggregations'] = $this->getSearchFilterAggregations($queryArray);
 
             /* Filters */
             $startPrice = $request->query('startprice');
@@ -129,15 +129,24 @@ class IndexController extends Controller
         return view('index.index', $variables);
     }
 
-    protected function getSearchFilterAggregations()
+    public function viewProduct($productId)
+    {
+        $result = $this->client->get([
+            'index' => 'ecommerce',
+            'type' => 'product',
+            'id' => $productId,
+        ]);
+
+        return view('index.view-product', [ 'product' => $result['_source'] ]);
+    }
+
+    protected function getSearchFilterAggregations(array $queryArray)
     {
         $params = [
             'index' => 'ecommerce',
             'type' => 'product',
             'body' => [
-                'query' => [
-                    'match_all' => new \stdClass(),
-                ],
+                'query' => $queryArray,
                 'size' => 0,
                 'aggs' => [
                     'statuses' => [

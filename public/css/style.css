@@ -1,3 +1,7 @@
+body {
+    padding: 20px 0 20px 0;
+}
+
 #search-wrapper,
 .pagination-wrapper {
     display: flex;

@@ -59,7 +59,10 @@
             <div class="row">
                 <div class="col-xs-8 col-xs-offset-2">
                     <div class="panel panel-default">
-                        <div class="panel-heading">{{ $hit['_source']['name'] }}</div>
+                        <div class="panel-heading">
+                            <a href="/product/view/{{ $hit['_id'] }}">{{ $hit['_source']['name'] }}</a>
+                        </div>
+                        
                         <div class="panel-body">
                             <p>{{ $hit['_source']['description'] }}</p>
 
